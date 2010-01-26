@@ -9,7 +9,7 @@ FULL_SCREEN = False
 FPS = 60
 
 # Debugging
-SHOW_DEBUG = True
+SHOW_DEBUG = False
 PROFILE = False
 
 # Controls

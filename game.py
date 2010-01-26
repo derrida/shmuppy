@@ -52,6 +52,9 @@ class Game(object):
             self.enemy,
             self.projectiles ])
 
+        for sprite in self.all:
+            sprite.game = self
+
     def play(self):
         """The main game loop."""
 
