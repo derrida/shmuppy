@@ -1,3 +1,4 @@
+import os
 import pygame
 from constants import *
 from room import Room
@@ -16,6 +17,7 @@ class Game(object):
     def create_game(self):
         """Creates the game window and clock."""
 
+        os.environ['SDL_VIDEO_CENTERED'] = '1'
         self.screen = pygame.display.set_mode(RESOLUTION, False, 32)
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("%s %s" % (GAME_NAME, GAME_VER))
