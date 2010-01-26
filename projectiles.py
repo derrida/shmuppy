@@ -10,13 +10,14 @@ class Projectile(pygame.sprite.DirtySprite):
         self.image.fill(color)
         self.rect = self.image.get_rect()
         self.speed = speed
-        self.x = 1
-        self.y = 1
+        self.x = 0
+        self.y = 0
 
     def draw(self):
         """Draw the projectile's new position."""
 
         self.dirty = 1
+        self.rect.left = self.game.player.rect.centerx
         self.rect.move_ip([self.x * self.speed, self.y * self.speed])
 
     def update(self):

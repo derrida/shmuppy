@@ -81,6 +81,8 @@ class Game(object):
                     self.player.x -= MOVE_OFFSET
                 elif event.key == RIGHT:
                     self.player.x += MOVE_OFFSET
+                elif event.key == K_z:
+                    self.player.shoot()
             elif event.type == KEYUP:
                 if event.key in (UP, DOWN):
                     self.player.y = 0

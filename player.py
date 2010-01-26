@@ -27,6 +27,15 @@ class Player(pygame.sprite.DirtySprite):
         if not SCREEN_RECT.contains(rect) or (Rect(rect).colliderect(collide)):
             return True
 
+    def shoot(self):
+        """Shoot a projectile."""
+
+        for projectile in self.game.projectiles:
+            self.game.all.add(projectile)
+            projectile.rect.x = self.rect.x
+            projectile.rect.y = self.rect.y
+            projectile.y = 1
+
     def update(self):
         """Check the sprite for movement and collisions each frame."""
 
