@@ -8,8 +8,9 @@ class Player(pygame.sprite.DirtySprite):
     def __init__(self):
         pygame.sprite.DirtySprite.__init__(self)
         self.image = pygame.Surface(PLAYER_SIZE).convert()
-        self.image.fill(PLAYER_COLOR)
+        self.image.fill(ROOM_COLOR)
         self.rect = self.image.get_rect()
+        pygame.draw.circle(self.image, PLAYER_COLOR, self.rect.center, 12)
         self.x = 0
         self.y = 0
 

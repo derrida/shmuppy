@@ -8,8 +8,9 @@ class Enemy(pygame.sprite.DirtySprite):
     def __init__(self):
         pygame.sprite.DirtySprite.__init__(self)
         self.image = pygame.Surface(ENEMY_SIZE).convert()
-        self.image.fill(ENEMY_COLOR)
+        self.image.fill(ROOM_COLOR)
         self.rect = self.image.get_rect()
+        pygame.draw.circle(self.image, ENEMY_COLOR, self.rect.center, 12)
         self.rect.move_ip(
             [ ENEMY_SIZE[0] * random.randint(0, ROOM_TILES[0]),
             ENEMY_SIZE[1] * random.randint(0, ROOM_TILES[1]) ])
