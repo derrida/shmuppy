@@ -54,11 +54,23 @@ class Game(object):
             elif event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     self.running = False
-                elif event.key in PLAYER_MOVE_KEYS:
-                    self.player.move(True, event.key)
+                elif event.key == UP:
+                    self.player.y -= MOVE_OFFSET
+                elif event.key == DOWN:
+                    self.player.y += MOVE_OFFSET
+                elif event.key == LEFT:
+                    self.player.x -= MOVE_OFFSET
+                elif event.key == RIGHT:
+                    self.player.x += MOVE_OFFSET
             elif event.type == KEYUP:
-                if event.key in PLAYER_MOVE_KEYS:
-                    self.player.move(False, event.key)
+                if event.key == K_UP:
+                    self.player.y = 0
+                elif event.key == K_DOWN:
+                    self.player.y = 0
+                elif event.key == K_LEFT:
+                    self.player.x = 0
+                elif event.key == K_RIGHT:
+                    self.player.x = 0
 
     def draw_screen(self):
         """Draw all of the objects to the screen."""
