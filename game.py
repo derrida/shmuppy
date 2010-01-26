@@ -4,6 +4,7 @@ from constants import *
 from room import Room
 from player import Player
 from enemy import Enemy
+from projectiles import *
 
 class Game(object):
     """The main game object."""
@@ -31,11 +32,13 @@ class Game(object):
         self.room = Room()
         self.player = Player()
         self.enemy = Enemy()
+        self.bullet = Arrow()
 
         self.all = pygame.sprite.LayeredDirty([
             self.room,
             self.player,
-            self.enemy ])
+            self.enemy,
+            self.bullet ])
 
     def play(self):
         """The main game loop."""

@@ -22,11 +22,10 @@ class Player(pygame.sprite.DirtySprite):
     def collide(self):
         """Check if the player collided with an object or screen edge."""
 
-        move_rect = self.rect.move([self.x, self.y])
+        rect = self.rect.move([self.x, self.y])
         collide = Rect(ENEMY_POSITION[0], ENEMY_POSITION[1], 24, 24)
-        if not SCREEN_RECT.contains(move_rect) or (
-            Rect(move_rect).colliderect(collide)):
-                return True
+        if not SCREEN_RECT.contains(rect) or (Rect(rect).colliderect(collide)):
+            return True
 
     def update(self):
         """Check the sprite for movement and collisions each frame."""
