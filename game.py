@@ -1,5 +1,8 @@
 import pygame
-from sprite import *
+from constants import *
+from room import Room
+from player import Player
+from enemy import Enemy
 
 class Game(object):
     """The main game object."""
