@@ -20,3 +20,4 @@ class Enemy(pygame.sprite.DirtySprite):
         for proj in self.game.projectiles:
             if Rect(self.rect).colliderect(proj.rect):
                 self.kill()
+                proj.kill()
