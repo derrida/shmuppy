@@ -9,7 +9,7 @@ FULL_SCREEN = False
 FPS = 60
 
 # Debugging
-SHOW_DEBUG = True
+SHOW_DEBUG = False
 PROFILE = False
 
 # Controls
@@ -26,7 +26,7 @@ PLAYER_SIZE = (24,24)
 # Ememies
 ENEMY_COLOR = (0,100,0)
 ENEMY_SIZE = (24,24)
-ENEMY_POSITION = (RESOLUTION[0]/2, RESOLUTION[1]/2)
+ENEMY_POSITION = (192, 192)
 
 # Room
 ROOM_COLOR = (0,20,20)
