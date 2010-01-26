@@ -6,7 +6,7 @@ GAME_VER = ""
 # Options
 RESOLUTION = (600,800)
 FULL_SCREEN = False
-FPS = 60.0
+FPS = 60
 
 # Debugging
 SHOW_DEBUG = True
@@ -17,7 +17,7 @@ UP = K_UP
 DOWN = K_DOWN
 LEFT = K_LEFT
 RIGHT = K_RIGHT
-MOVE_OFFSET = 60/FPS*2
+MOVE_OFFSET = 3
 
 # Player
 PLAYER_COLOR = (100,0,0)

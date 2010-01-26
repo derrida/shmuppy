@@ -77,8 +77,13 @@ class Game(object):
     def show_debug(self):
         """Print debug info to console output."""
 
-        if SHOW_DEBUG and self.dirty_rects:
+        if SHOW_DEBUG:
+
+            # Show dirty screen areas in console output.
             for i in range(0, len(self.dirty_rects)):
                 print "Dirty screen areas: %sx%s @ %s,%s" % (
                     self.dirty_rects[i][2], self.dirty_rects[i][3],
                     self.dirty_rects[i][0], self.dirty_rects[i][1])
+
+            # Show current framerate on screen.
+            print 'Framerate: %f/%f' % (self.clock.get_fps(), FPS)
