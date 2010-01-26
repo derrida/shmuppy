@@ -47,8 +47,8 @@ class Player(pygame.sprite.DirtySprite):
         dir = KEYMAP[key]
         move_queue = self.move_queue
         if moving:
-            move_queue.append(dir)
             self.stop = False
+            move_queue.append(dir)
         else:
             if len(move_queue) > 0:
                 if dir in move_queue:
@@ -56,20 +56,35 @@ class Player(pygame.sprite.DirtySprite):
             if len(move_queue) == 0:
                 self.stop = True
 
-    def draw(self, dir):
-        """Controls key input to the player character."""
+    def draw(self):
+        """Draw the player's new position if it changed."""
 
+        # Set the player dirty for it to be rendered this frame
         self.dirty = 1
-        self.rect.move_ip(dir)
+
+        # Move the player
+        self.rect.move_ip(self.move_queue[-1])
+        if len(self.move_queue) > 1:
+            self.rect.move_ip(self.move_queue[-2])
+
+        # Block the player from going outside of the screen
+        self.rect.clamp_ip(SCREEN_RECT)
+
+    def collide(self):
+        """Check if the player collided with something."""
+
+        move_rect = self.rect.move(self.move_queue[-1])
+        collide = (300,400,24,24)
+        return Rect(move_rect).colliderect(collide)
 
     def update(self):
-        """Draw the sprite's new position."""
+        """Check the sprite for movement and collisions each frame."""
 
         if not self.stop:
-            self.draw(self.move_queue[-1])
-            if len(self.move_queue) > 1:
-                self.draw(self.move_queue[-2])
-            self.rect.clamp_ip(SCREEN_RECT)
+            if not self.collide():
+                self.draw()
+            else:
+                self.kill()
 
 
 class Enemy(pygame.sprite.DirtySprite):
