@@ -10,7 +10,7 @@ class Projectile(pygame.sprite.DirtySprite):
         self.image.fill(color)
         self.rect = self.image.get_rect()
         self.speed = speed
-        self.x = 0
+        self.x = 1
         self.y = 1
 
     def draw(self):
