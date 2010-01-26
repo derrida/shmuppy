@@ -21,14 +21,14 @@ class Weapon(pygame.sprite.DirtySprite):
         self.rect.center(player.x,player.y)
 
     def update(self):
-        """Update the projectile on the screen."""
+        """Update the weapon's position on the screen."""
 
         if (self.x or self.y):
             self.draw()
 
 
-class Bow(Projectile):
-    """A Bullet is a single projectile."""
+class Bow(Arrow):
+    """A Bow is a weapon that fires a single Arrow projectile."""
 
     def __init__(self):
         size = (2,4)
