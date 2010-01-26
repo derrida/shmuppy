@@ -1,10 +1,10 @@
 import os
+import random
 import pygame
 from constants import *
 from room import Room
 from player import Player
 from enemy import Enemy
-from projectiles import *
 
 class Game(object):
     """The main game object."""
@@ -33,17 +33,22 @@ class Game(object):
         self.room = Room()
         self.player = Player()
         self.enemy = Enemy()
-
-        # Projectiles
         self.projectiles = pygame.sprite.Group()
+        self.enemies = pygame.sprite.Group()
+
+        # Create a random amount of enemies
+        for enemy in range(0, random.randint(0,20)):
+            enemy = Enemy()
+            self.enemies.add([enemy])
 
         # Rendered layers
         self.all = pygame.sprite.LayeredDirty([
             self.room,
             self.player,
-            self.enemy,
+            self.enemies,
             self.projectiles ])
 
+        # Pass the game object to all sprites so they know about other sprites
         for sprite in self.all:
             sprite.game = self
 
@@ -60,11 +65,19 @@ class Game(object):
         """Check for user input."""
 
         for event in pygame.event.get():
+
+            # Check for window destroy event
             if event.type == QUIT:
                 self.running = False
+
+            # Pressed keys
             elif event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
+
+                # Quits the game
+                if event.key == QUIT:
                     self.running = False
+
+                # Player movement
                 elif event.key == UP:
                     self.player.y -= MOVE_OFFSET
                 elif event.key == DOWN:
@@ -73,9 +86,15 @@ class Game(object):
                     self.player.x -= MOVE_OFFSET
                 elif event.key == RIGHT:
                     self.player.x += MOVE_OFFSET
-                elif event.key == K_z:
+
+                # Player shoot weapon
+                if event.key == FIRE:
                     self.player.shoot()
+
+            # Released keys
             elif event.type == KEYUP:
+
+                # Stop player movement
                 if event.key in (UP, DOWN):
                     self.player.y = 0
                 elif event.key in (LEFT, RIGHT):

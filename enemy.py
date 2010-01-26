@@ -1,3 +1,4 @@
+import random
 import pygame
 from constants import *
 
@@ -9,9 +10,13 @@ class Enemy(pygame.sprite.DirtySprite):
         self.image = pygame.Surface(ENEMY_SIZE).convert()
         self.image.fill(ENEMY_COLOR)
         self.rect = self.image.get_rect()
-        self.rect.move_ip(ENEMY_POSITION)
+        self.rect.move_ip(
+            [ ENEMY_SIZE[0] * random.randint(0, ROOM_TILES[0]),
+            ENEMY_SIZE[1] * random.randint(0, ROOM_TILES[1]) ])
 
     def update(self):
+
+        # Kill any enemies that are hit by a projectile
         for proj in self.game.projectiles:
             if Rect(self.rect).colliderect(proj.rect):
                 self.kill()

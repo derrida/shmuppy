@@ -24,8 +24,10 @@ class Player(pygame.sprite.DirtySprite):
         """Check if the player collided with an object or screen edge."""
 
         rect = self.rect.move([self.x, self.y])
-        collide = Rect(ENEMY_POSITION[0], ENEMY_POSITION[1], 24, 24)
-        if not SCREEN_RECT.contains(rect) or (Rect(rect).colliderect(collide)):
+        enemy_rects = []
+        for enemy in self.game.enemies:
+            enemy_rects.append(enemy.rect)
+        if not SCREEN_RECT.contains(rect) or (Rect(rect).collidelistall(enemy_rects)):
             return True
 
     def shoot(self):
@@ -41,5 +43,11 @@ class Player(pygame.sprite.DirtySprite):
     def update(self):
         """Check the sprite for movement and collisions each frame."""
 
+        # Draw the player at its new position.
         if (self.x or self.y) and not self.collide():
             self.draw()
+
+        # Remove any projectiles that go off screen.
+        for projectile in self.game.projectiles:
+            if not projectile.rect.colliderect(SCREEN_RECT):
+                projectile.kill()
