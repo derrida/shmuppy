@@ -24,8 +24,7 @@ class Game(object):
             pygame.display.toggle_fullscreen()
 
     def create_sprites(self):
-        """Create all the required sprites and add them to their appropriate
-        sprite groups."""
+        """Create all the required sprites and add them to groups."""
 
         self.room = Room()
         self.player = Player()
@@ -37,13 +36,13 @@ class Game(object):
             self.enemy ])
 
     def play(self):
-        """The main game loop that limits the speed, checks for events, and
-            then draws the changed areas of the screen."""
+        """The main game loop."""
 
         while self.running:
             self.clock.tick(FPS)
             self.check_events()
             self.draw_screen()
+            self.show_debug()
 
     def check_events(self):
         """Check for user input."""
@@ -72,5 +71,14 @@ class Game(object):
         """Draw all of the objects to the screen."""
 
         self.all.update()
-        dirty_rects = self.all.draw(self.screen)
-        pygame.display.update(dirty_rects)
+        self.dirty_rects = self.all.draw(self.screen)
+        pygame.display.update(self.dirty_rects)
+
+    def show_debug(self):
+        """Print debug info to console output."""
+
+        if SHOW_DEBUG and self.dirty_rects:
+            for i in range(0, len(self.dirty_rects)):
+                print "Dirty screen areas: %sx%s @ %s,%s" % (
+                    self.dirty_rects[i][2], self.dirty_rects[i][3],
+                    self.dirty_rects[i][0], self.dirty_rects[i][1])

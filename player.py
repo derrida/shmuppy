@@ -20,14 +20,16 @@ class Player(pygame.sprite.DirtySprite):
         self.rect.clamp_ip(SCREEN_RECT)
 
     def collide(self):
-        """Check if the player collided with something."""
+        """Check if the player collided with an object or screen edge."""
 
         move_rect = self.rect.move([self.x, self.y])
         collide = (300,400,24,24)
-        return Rect(move_rect).colliderect(collide)
+        if not SCREEN_RECT.contains(move_rect) or (
+            Rect(move_rect).colliderect(collide)):
+                return True
 
     def update(self):
         """Check the sprite for movement and collisions each frame."""
 
-        if not self.collide():
+        if (self.x or self.y) and not self.collide():
             self.draw()
