@@ -227,9 +227,9 @@ def main():
         draw_circle_segment(screen, (0,0,200), p, 40, 25, start=240+i, stop=340+i)
     
         
-        #draw_circle_segment(screen, (200,200,200), (370, 300), 40, 0, start=0+i, stop=150+i)
-        #draw_circle_segment(screen, (100,100,100), (370, 300), 40, 0, start=180+i, stop=360+i)
-        #draw_circle_segment(screen, (100,100,100), (370, 300), 50, 40, start=180+i, stop=360+i)
+        draw_circle_segment(screen, (200,200,200), (370, 300), 40, 0, start=0+i, stop=150+i)
+        draw_circle_segment(screen, (100,100,100), (370, 300), 40, 0, start=180+i, stop=360+i)
+        draw_circle_segment(screen, (100,100,100), (370, 300), 50, 40, start=180+i, stop=360+i)
         draw_cog(screen, (500, 340), 40, 30, (200,40,105), i)
         draw_cog(screen, (500, 267), 40, 30, (40,200,105), -i)
         # "assembly line"
