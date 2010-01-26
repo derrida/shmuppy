@@ -29,16 +29,28 @@ class Game(object):
     def create_sprites(self):
         """Create all the required sprites and add them to groups."""
 
+        # Game objects
         self.room = Room()
         self.player = Player()
         self.enemy = Enemy()
-        self.bullet = Arrow()
 
+        # Projectiles
+        self.arrow = Arrow()
+        self.bullet = Bullet()
+        self.grenade = Grenade()
+        self.particle = Particle()
+        self.projectiles = pygame.sprite.Group([
+            self.arrow,
+            self.bullet,
+            self.grenade,
+            self.particle ])
+
+        # Rendered layers
         self.all = pygame.sprite.LayeredDirty([
             self.room,
             self.player,
             self.enemy,
-            self.bullet ])
+            self.projectiles ])
 
     def play(self):
         """The main game loop."""

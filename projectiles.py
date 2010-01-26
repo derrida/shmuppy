@@ -1,42 +1,42 @@
 import pygame
 from constants import *
 
-class Bullet(pygame.sprite.DirtySprite):
+class Projectile(pygame.sprite.DirtySprite):
+    """The base that other projectiles inherit."""
+
+    def __init__(self, size, color):
+        pygame.sprite.DirtySprite.__init__(self)
+        self.image = pygame.Surface(size).convert()
+        self.image.fill(color)
+        self.rect = self.image.get_rect()
+
+    def update(self):
+        self.dirty = 1
+
+
+class Bullet(Projectile):
     """A Bullet is a single projectile."""
 
     def __init__(self):
-        pygame.sprite.DirtySprite.__init__(self)
-        self.dirty = 1
-        self.image = pygame.Surface(BULLET_SIZE).convert()
-        self.image.fill(BULLET_COLOR)
-        self.rect = self.image.get_rect()
+        Projectile.__init__(self, (2,4), (255,0,128))
 
-class Arrow(pygame.sprite.DirtySprite):
-    """An Arrow is a single projectile."""
+
+class Arrow(Projectile):
+    """A Arrow is a single projectile."""
 
     def __init__(self):
-        pygame.sprite.DirtySprite.__init__(self)
-        self.dirty = 1
-        self.image = pygame.Surface(ARROW_SIZE).convert()
-        self.image.fill(ARROW_COLOR)
-        self.rect = self.image.get_rect()
+        Projectile.__init__(self, (1,8), (128,0,255))
 
-class Grenade(pygame.sprite.DirtySprite):
+
+class Grenade(Projectile):
     """A Grenade is a single projectile."""
 
     def __init__(self):
-        pygame.sprite.DirtySprite.__init__(self)
-        self.dirty = 1
-        self.image = pygame.Surface(GRENADE_SIZE).convert()
-        self.image.fill(GRENADE_COLOR)
-        self.rect = self.image.get_rect()
+        Projectile.__init__(self, (4,6), (128,255,128))
 
-class Particle(pygame.sprite.DirtySprite):
+
+class Particle(Projectile):
     """A Particle is a single projectile."""
 
     def __init__(self):
-        pygame.sprite.DirtySprite.__init__(self)
-        self.dirty = 1
-        self.image = pygame.Surface(PARTICLE_SIZE).convert()
-        self.image.fill(PARTICLE_COLOR)
-        self.rect = self.image.get_rect()
+        Projectile.__init__(self, (1,1), (255,128,0))
