@@ -51,7 +51,7 @@ class Grenade(Projectile):
 
     def __init__(self):
         size = (4,6)
-        color = (30,120,50)
+        color = (255,120,50)
         speed = 1
         Projectile.__init__(self, size, color, speed)
 
@@ -61,6 +61,6 @@ class Particle(Projectile):
 
     def __init__(self):
         size = (1,1)
-        color = (128,110,40)
-        speed = 5
+        color = (255,255,255)
+        speed = 2
         Projectile.__init__(self, size, color, speed)
