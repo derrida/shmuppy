@@ -1,5 +1,6 @@
 import pygame
 from constants import *
+from projectiles import *
 
 class Player(pygame.sprite.DirtySprite):
     """The sprite that the player controls."""
@@ -30,11 +31,12 @@ class Player(pygame.sprite.DirtySprite):
     def shoot(self):
         """Shoot a projectile."""
 
-        for projectile in self.game.projectiles:
-            self.game.all.add(projectile)
-            projectile.rect.x = self.rect.x
-            projectile.rect.y = self.rect.y
-            projectile.y = 1
+        proj = Arrow()
+        self.game.projectiles.add(proj)
+        self.game.all.add(self.game.projectiles)
+        proj.rect.x = self.rect.centerx
+        proj.rect.y = self.rect.centery
+        proj.y = 1
 
     def update(self):
         """Check the sprite for movement and collisions each frame."""

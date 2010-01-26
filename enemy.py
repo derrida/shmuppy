@@ -10,3 +10,8 @@ class Enemy(pygame.sprite.DirtySprite):
         self.image.fill(ENEMY_COLOR)
         self.rect = self.image.get_rect()
         self.rect.move_ip(ENEMY_POSITION)
+
+    def update(self):
+        for proj in self.game.projectiles:
+            if Rect(self.rect).colliderect(proj.rect):
+                self.kill()

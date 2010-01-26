@@ -35,15 +35,7 @@ class Game(object):
         self.enemy = Enemy()
 
         # Projectiles
-        self.arrow = Arrow()
-        self.bullet = Bullet()
-        self.grenade = Grenade()
-        self.particle = Particle()
-        self.projectiles = pygame.sprite.Group([
-            self.arrow,
-            self.bullet,
-            self.grenade,
-            self.particle ])
+        self.projectiles = pygame.sprite.Group()
 
         # Rendered layers
         self.all = pygame.sprite.LayeredDirty([

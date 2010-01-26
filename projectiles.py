@@ -17,7 +17,6 @@ class Projectile(pygame.sprite.DirtySprite):
         """Draw the projectile's new position."""
 
         self.dirty = 1
-        self.rect.left = self.game.player.rect.centerx
         self.rect.move_ip([self.x * self.speed, self.y * self.speed])
 
     def update(self):
@@ -25,7 +24,6 @@ class Projectile(pygame.sprite.DirtySprite):
 
         if (self.x or self.y):
             self.draw()
-
 
 class Bullet(Projectile):
     """A Bullet is a single projectile."""
