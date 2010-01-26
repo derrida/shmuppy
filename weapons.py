@@ -33,5 +33,5 @@ class Bow(Arrow):
     def __init__(self):
         size = (2,4)
         color = (255,30,128)
-        speed = 6
+        speed = 20
         Projectile.__init__(self, size, color, speed)
