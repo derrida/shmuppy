@@ -15,13 +15,8 @@ class Player(pygame.sprite.DirtySprite):
     def draw(self):
         """Draw the player's new position if it changed."""
 
-        # Set the player dirty for it to be rendered this frame
         self.dirty = 1
-
-        # Move the player
         self.rect.move_ip([self.x, self.y])
-
-        # Block the player from going outside of the screen
         self.rect.clamp_ip(SCREEN_RECT)
 
     def collide(self):

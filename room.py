@@ -26,5 +26,8 @@ class FloorTile(pygame.sprite.DirtySprite):
     def __init__(self):
         pygame.sprite.DirtySprite.__init__(self)
         self.image = pygame.Surface(TILE_SIZE).convert()
-        self.image.fill(BGCOLOR)
+        self.image.fill(ROOM_COLOR)
         self.rect = self.image.get_rect()
+        if SHOW_DEBUG:
+            offset = self.rect.move([-1,-1])
+            pygame.draw.rect(self.image, GRID_COLOR, offset, 1)

@@ -63,13 +63,9 @@ class Game(object):
                 elif event.key == RIGHT:
                     self.player.x += MOVE_OFFSET
             elif event.type == KEYUP:
-                if event.key == K_UP:
+                if event.key in (UP, DOWN):
                     self.player.y = 0
-                elif event.key == K_DOWN:
-                    self.player.y = 0
-                elif event.key == K_LEFT:
-                    self.player.x = 0
-                elif event.key == K_RIGHT:
+                elif event.key in (LEFT, RIGHT):
                     self.player.x = 0
 
     def draw_screen(self):
