@@ -1,6 +1,7 @@
 import random
 import pygame
 from constants import *
+from drawing import draw_circle
 
 class Enemy(pygame.sprite.DirtySprite):
     """An enemy sprite."""
@@ -10,7 +11,7 @@ class Enemy(pygame.sprite.DirtySprite):
         self.image = pygame.Surface(ENEMY_SIZE).convert()
         self.image.fill(ROOM_COLOR)
         self.rect = self.image.get_rect()
-        pygame.draw.circle(self.image, ENEMY_COLOR, self.rect.center, 12)
+        draw_circle(self.image, ENEMY_COLOR, self.rect.center, 12)
         self.rect.move_ip(
             [ ENEMY_SIZE[0] * random.randint(0, ROOM_TILES[0]),
             ENEMY_SIZE[1] * random.randint(0, ROOM_TILES[1]) ])

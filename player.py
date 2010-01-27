@@ -1,5 +1,6 @@
 import pygame
 from constants import *
+from drawing import draw_circle
 from projectiles import *
 
 class Player(pygame.sprite.DirtySprite):
@@ -10,7 +11,7 @@ class Player(pygame.sprite.DirtySprite):
         self.image = pygame.Surface(PLAYER_SIZE).convert()
         self.image.fill(ROOM_COLOR)
         self.rect = self.image.get_rect()
-        pygame.draw.circle(self.image, PLAYER_COLOR, self.rect.center, 12)
+        draw_circle(self.image, PLAYER_COLOR, self.rect.center, 12)
         self.x = 0
         self.y = 0
 
