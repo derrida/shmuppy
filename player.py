@@ -28,8 +28,9 @@ class Player(pygame.sprite.DirtySprite):
         enemy_rects = []
         for enemy in self.game.enemies:
             enemy_rects.append(enemy.rect)
-        if not SCREEN_RECT.contains(rect) or (Rect(rect).collidelistall(enemy_rects)):
-            return True
+        if not SCREEN_RECT.contains(rect) or (
+            Rect(rect).collidelistall(enemy_rects)):
+                return True
 
     def shoot(self):
         """Shoot a projectile."""
