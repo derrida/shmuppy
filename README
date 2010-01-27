@@ -1,6 +1,21 @@
 shmuppy
 A shmup written in python
 
-
 TODO:
-* Create a basic game loop
+
+weapons
+* rapid firing of weapons.
+* switching weapons
+* weapon/ammo attributes: distance, damage, capacity, ...
+* ammunition expending
+
+player
+* face the direction it moves in
+
+enemies
+* enemy ai
+* enemy attributes: health, weapon, ammo, ai factor, ...
+
+rooms
+* draw tiles
+* has destroyable objects and floor tiles

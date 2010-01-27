@@ -1,10 +1,9 @@
-import os
-import random
+import os, random
 import pygame
-from constants import *
 from room import Room
 from player import Player
 from enemy import Enemy
+from config import *
 
 class Game(object):
     """The main game object."""
@@ -21,25 +20,23 @@ class Game(object):
         os.environ['SDL_VIDEO_CENTERED'] = '1'
         self.screen = pygame.display.set_mode(RESOLUTION, False, 32)
         self.clock = pygame.time.Clock()
-        pygame.display.set_caption("%s %s" % (GAME_NAME, GAME_VER))
+        pygame.display.set_caption("%s %s" % (NAME, VERSION))
         pygame.mouse.set_visible(False)
-        if FULL_SCREEN:
-            pygame.display.toggle_fullscreen()
+        if FULLSCREEN: pygame.display.toggle_fullscreen()
 
     def create_sprites(self):
         """Create all the required sprites and add them to groups."""
 
         # Game objects
         self.room = Room()
-        self.player = Player()
-        self.enemy = Enemy()
+        self.player = Player(self.screen)
         self.projectiles = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
 
         # Create a random amount of enemies
         for enemy in range(0, random.randint(0,20)):
-            enemy = Enemy()
-            self.enemies.add([enemy])
+            enemy = Enemy(self.room)
+            self.enemies.add(enemy)
 
         # Rendered layers
         self.all = pygame.sprite.LayeredDirty([
@@ -79,13 +76,13 @@ class Game(object):
 
                 # Player movement
                 elif event.key == UP:
-                    self.player.y -= MOVE_OFFSET
+                    self.player.y -= self.player.speed
                 elif event.key == DOWN:
-                    self.player.y += MOVE_OFFSET
+                    self.player.y += self.player.speed
                 elif event.key == LEFT:
-                    self.player.x -= MOVE_OFFSET
+                    self.player.x -= self.player.speed
                 elif event.key == RIGHT:
-                    self.player.x += MOVE_OFFSET
+                    self.player.x += self.player.speed
 
                 # Player shoot weapon
                 if event.key == FIRE:
@@ -110,7 +107,7 @@ class Game(object):
     def show_debug(self):
         """Print debug info to console output."""
 
-        if SHOW_DEBUG:
+        if DEBUG:
 
             # Show dirty screen areas in console output.
             for i in range(0, len(self.dirty_rects)):

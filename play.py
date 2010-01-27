@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
-from constants import *
 from game import Game
+import config
 
 if __name__ == "__main__":
 
-    if PROFILE:
+    if config.PROFILE:
         import cProfile, pstats
         prof = cProfile.run("Game()", "profile.prof")
         stats = pstats.Stats("profile.prof")

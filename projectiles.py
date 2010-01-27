@@ -1,12 +1,12 @@
-import pygame
-from constants import *
+from pygame.sprite import DirtySprite
+from pygame import Surface
 
-class Projectile(pygame.sprite.DirtySprite):
+class Projectile(DirtySprite):
     """The base that other projectiles inherit."""
 
     def __init__(self, size, color, speed):
-        pygame.sprite.DirtySprite.__init__(self)
-        self.image = pygame.Surface(size).convert()
+        DirtySprite.__init__(self)
+        self.image = Surface(size).convert()
         self.image.fill(color)
         self.rect = self.image.get_rect()
         self.speed = speed

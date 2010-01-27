@@ -1,20 +1,21 @@
 import random
-import pygame
-from constants import *
-from drawing import draw_circle
+from pygame.sprite import DirtySprite
+from pygame import Surface, Rect
+from projectiles import *
 
-class Enemy(pygame.sprite.DirtySprite):
+class Enemy(DirtySprite):
     """An enemy sprite."""
 
-    def __init__(self):
-        pygame.sprite.DirtySprite.__init__(self)
-        self.image = pygame.Surface(ENEMY_SIZE).convert()
-        self.image.fill(ROOM_COLOR)
+    def __init__(self, room):
+        DirtySprite.__init__(self)
+        color = (0,100,0)
+        size = (24,24)
+        self.image = Surface(size).convert()
+        self.image.fill(color)
         self.rect = self.image.get_rect()
-        draw_circle(self.image, ENEMY_COLOR, self.rect.center, 12)
         self.rect.move_ip(
-            [ ENEMY_SIZE[0] * random.randint(0, ROOM_TILES[0]),
-            ENEMY_SIZE[1] * random.randint(0, ROOM_TILES[1]) ])
+            [ size[0] * random.randint(0, room.num_tiles[0]),
+            size[1] * random.randint(0, room.num_tiles[1]) ])
 
     def update(self):
 

@@ -1,17 +1,20 @@
-import pygame
-from constants import *
-from drawing import draw_circle
+from pygame.sprite import DirtySprite
+from pygame import Surface, Rect
 from projectiles import *
+import config
 
-class Player(pygame.sprite.DirtySprite):
+class Player(DirtySprite):
     """The sprite that the player controls."""
 
-    def __init__(self):
-        pygame.sprite.DirtySprite.__init__(self)
-        self.image = pygame.Surface(PLAYER_SIZE).convert()
-        self.image.fill(ROOM_COLOR)
+    def __init__(self, screen):
+        DirtySprite.__init__(self)
+        self.screen = screen
+        color = (100,0,0)
+        size = (24,24)
+        self.image = Surface(size).convert()
+        self.image.fill(color)
         self.rect = self.image.get_rect()
-        draw_circle(self.image, PLAYER_COLOR, self.rect.center, 12)
+        self.speed = 3
         self.x = 0
         self.y = 0
 
@@ -20,7 +23,7 @@ class Player(pygame.sprite.DirtySprite):
 
         self.dirty = 1
         self.rect.move_ip([self.x, self.y])
-        self.rect.clamp_ip(SCREEN_RECT)
+        self.rect.clamp_ip(self.game.screen.get_rect())
 
     def collide(self):
         """Check if the player collided with an object or screen edge."""
@@ -29,9 +32,8 @@ class Player(pygame.sprite.DirtySprite):
         enemy_rects = []
         for enemy in self.game.enemies:
             enemy_rects.append(enemy.rect)
-        if not SCREEN_RECT.contains(rect) or (
-            Rect(rect).collidelistall(enemy_rects)):
-                return True
+        if not self.screen.get_rect().contains(rect) or (
+            Rect(rect).collidelistall(enemy_rects)): return True
 
     def shoot(self):
         """Shoot a projectile."""
@@ -52,5 +54,5 @@ class Player(pygame.sprite.DirtySprite):
 
         # Remove any projectiles that go off screen.
         for projectile in self.game.projectiles:
-            if not projectile.rect.colliderect(SCREEN_RECT):
+            if not projectile.rect.colliderect(self.screen.get_rect()):
                 projectile.kill()
