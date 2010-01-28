@@ -1,5 +1,7 @@
-import os, random
-import pygame
+import os
+from random import randint
+from pygame import display, time, mouse, event
+from pygame.sprite import Group, LayeredDirty
 from room import Room
 from player import Player
 from enemy import Enemy
@@ -18,36 +20,34 @@ class Game(object):
         """Creates the game window and clock."""
 
         os.environ['SDL_VIDEO_CENTERED'] = '1'
-        self.screen = pygame.display.set_mode(RESOLUTION, False, 32)
-        self.clock = pygame.time.Clock()
-        pygame.display.set_caption("%s %s" % (NAME, VERSION))
-        pygame.mouse.set_visible(False)
-        if FULLSCREEN: pygame.display.toggle_fullscreen()
+        self.screen = display.set_mode(RESOLUTION, False, 32)
+        self.clock = time.Clock()
+        display.set_caption("%s %s" % (NAME, VERSION))
+        mouse.set_visible(False)
+        if FULLSCREEN:
+            toggle_fullscreen()
 
     def create_sprites(self):
         """Create all the required sprites and add them to groups."""
 
-        # Game objects
-        self.room = Room()
-        self.player = Player(self.screen)
-        self.projectiles = pygame.sprite.Group()
-        self.enemies = pygame.sprite.Group()
+        # Groups for sprites
+        self.weapons = Group()
+        self.projectiles = Group()
+        self.enemies = Group()
 
-        # Create a random amount of enemies
-        for enemy in range(0, random.randint(0,20)):
-            enemy = Enemy(self.room)
+        # Game Sprites
+        self.room = Room()
+        self.player = Player(self)
+        for enemy in range(0, randint(20,70)):
+            enemy = Enemy(self)
             self.enemies.add(enemy)
 
         # Rendered layers
-        self.all = pygame.sprite.LayeredDirty([
+        self.all = LayeredDirty([
             self.room,
             self.player,
             self.enemies,
             self.projectiles ])
-
-        # Pass the game object to all sprites so they know about other sprites
-        for sprite in self.all:
-            sprite.game = self
 
     def play(self):
         """The main game loop."""
@@ -61,48 +61,54 @@ class Game(object):
     def check_events(self):
         """Check for user input."""
 
-        for event in pygame.event.get():
+        for e in event.get():
 
             # Check for window destroy event
-            if event.type == QUIT:
+            if e.type == QUIT:
                 self.running = False
 
             # Pressed keys
-            elif event.type == KEYDOWN:
+            elif e.type == KEYDOWN:
 
                 # Quits the game
-                if event.key == QUIT:
+                if e.key == QUIT:
                     self.running = False
 
-                # Player movement
-                elif event.key == UP:
+                # Move player
+                elif e.key == UP:
                     self.player.y -= self.player.speed
-                elif event.key == DOWN:
+                elif e.key == DOWN:
                     self.player.y += self.player.speed
-                elif event.key == LEFT:
+                elif e.key == LEFT:
                     self.player.x -= self.player.speed
-                elif event.key == RIGHT:
+                elif e.key == RIGHT:
                     self.player.x += self.player.speed
 
                 # Player shoot weapon
-                if event.key == FIRE:
+                elif e.key == FIRE:
                     self.player.shoot()
 
             # Released keys
-            elif event.type == KEYUP:
+            elif e.type == KEYUP:
 
-                # Stop player movement
-                if event.key in (UP, DOWN):
+                # Stop player
+                if e.key in (UP, DOWN):
                     self.player.y = 0
-                elif event.key in (LEFT, RIGHT):
+                elif e.key in (LEFT, RIGHT):
                     self.player.x = 0
 
     def draw_screen(self):
         """Draw all of the objects to the screen."""
 
+        # Remove projectiles when the go off of the screen.
+        for proj in self.projectiles:
+            if not proj.rect.colliderect(self.screen.get_rect()):
+                proj.kill()
+
+        # Update all layers of the screen.
         self.all.update()
         self.dirty_rects = self.all.draw(self.screen)
-        pygame.display.update(self.dirty_rects)
+        display.update(self.dirty_rects)
 
     def show_debug(self):
         """Print debug info to console output."""

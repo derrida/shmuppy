@@ -1,26 +1,41 @@
-import random
-from pygame.sprite import DirtySprite
-from pygame import Surface, Rect
+from random import randint
+from pygame import Rect
+from sprite import Sprite
 from projectiles import *
 
-class Enemy(DirtySprite):
+class Enemy(Sprite):
     """An enemy sprite."""
 
-    def __init__(self, room):
-        DirtySprite.__init__(self)
-        color = (0,100,0)
-        size = (24,24)
-        self.image = Surface(size).convert()
-        self.image.fill(color)
-        self.rect = self.image.get_rect()
+    def __init__(self, scene):
+        self.scene = scene
+        self.size = (24,24)
+        self.color = (0,100,0)
+        Sprite.__init__(self, self.size, self.color)
+        self.speed = 1
+        self.x = 0
+        self.y = 0
+        self.move()
+
+    def move(self):
+        """Move the enemy."""
+
+        self.dirty = 1
         self.rect.move_ip(
-            [ size[0] * random.randint(0, room.num_tiles[0]),
-            size[1] * random.randint(0, room.num_tiles[1]) ])
+            [ self.size[0] * randint(0, self.scene.room.num_tiles[0]),
+            self.size[1] * randint(0, self.scene.room.num_tiles[1]) ])
 
-    def update(self):
+    def die(self):
+        """Check if an enemy is dead and kills it."""
 
-        # Kill any enemies that are hit by a projectile
-        for proj in self.game.projectiles:
+        # If projectile hits enemy, kill enemy and projectile.
+        for proj in self.scene.projectiles:
             if Rect(self.rect).colliderect(proj.rect):
                 self.kill()
                 proj.kill()
+
+    def update(self):
+        """Update the monster each frame."""
+
+        if (self.x or self.y):
+            self.move()
+        self.die()

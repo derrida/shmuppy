@@ -1,37 +1,36 @@
-import pygame
-from constants import *
+from pygame.sprite import DirtySprite
+from pygame import Surface
 
-class Weapon(pygame.sprite.DirtySprite):
+class Weapon(DirtySprite):
     """The base class that all weapons inherit from."""
 
     def __init__(self, size, color, speed):
-        pygame.sprite.DirtySprite.__init__(self)
-        self.image = pygame.Surface(size).convert()
+        DirtySprite.__init__(self)
+        self.image = Surface(size).convert()
         self.image.fill(color)
         self.rect = self.image.get_rect()
         self.speed = speed
-        self.x = 10
-        self.y = 10
+        self.x = 0
+        self.y = 0
 
-    def draw(self):
+    def move(self):
         """Draw the weapon's new position."""
 
         self.dirty = 1
-        #self.rect.move_ip([self.x * self.speed, self.y * self.speed])
-        self.rect.center(player.x,player.y)
+        self.rect.center(player.x, player.y)
 
     def update(self):
-        """Update the weapon's position on the screen."""
+        """Update the weapon each frame."""
 
         if (self.x or self.y):
-            self.draw()
+            self.move()
 
 
-class Bow(Arrow):
+class Bow(Weapon):
     """A Bow is a weapon that fires a single Arrow projectile."""
 
     def __init__(self):
-        size = (2,4)
-        color = (255,30,128)
-        speed = 20
-        Projectile.__init__(self, size, color, speed)
+        size = (2,4) # size of weapon graphic
+        color = (25,166,192) # temporary color
+        speed = 20 # weapon's rate of fire
+        Weapon.__init__(self, size, color, speed)
