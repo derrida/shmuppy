@@ -44,10 +44,10 @@ class Game(object):
 
                 # Show dirty screen areas in console output.
                 dirty = ""
-                for i in range(0, len(self.dirty_rects)):
-                    dirty = "dirty: %sx%s @ %s,%s, " % (self.dirty_rects[i][2],
-                        self.dirty_rects[i][3], self.dirty_rects[i][0],
-                        self.dirty_rects[i][1])
+                rects = self.scene.dirty_rects
+                for i in range(0, len(rects)):
+                    dirty = "dirty: %sx%s @ %s,%s, " % (rects[i][2],
+                        rects[i][3], rects[i][0], rects[i][1])
 
                 # Print number of projectiles on the screen
                 projs = "projs: %s, " % len(self.scene.projs)

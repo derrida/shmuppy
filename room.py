@@ -27,10 +27,10 @@ class FloorTile(Sprite):
     """A room is made up of many floor tiles."""
 
     def __init__(self):
-        self.size = (32,32)
+        self.size = (16,16)
         self.color = (43,73,85)
         self.grid_color = (170,170,170)
         Sprite.__init__(self, self.size, self.color)
         if config.DEBUG:
-            offset = self.rect.move([-1,-1])
+            offset = self.rect.move([1,1])
             draw.rect(self.image, self.grid_color, offset, 1)

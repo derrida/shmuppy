@@ -43,8 +43,8 @@ class Scene(object):
         # Layers
         self.all = OrderedUpdates([
             self.room,
-            self.players,
             self.enemies,
+            self.players,
             self.projs ])
 
     def draw(self):

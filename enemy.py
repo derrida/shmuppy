@@ -7,7 +7,7 @@ class Enemy(Sprite):
 
     def __init__(self, scene):
         self.scene = scene
-        self.size = (24,24)
+        self.size = (16,16)
         self.color = (0,100,0)
         Sprite.__init__(self, self.size, self.color)
         self.speed = 1
