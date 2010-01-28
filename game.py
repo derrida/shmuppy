@@ -13,13 +13,14 @@ class Game(object):
 
     def __init__(self):
         self.running = True
+        self.framecount = 0
         self.repeat_keys = {}
         self.create_game()
         self.create_sprites()
         self.play()
 
     def create_game(self):
-        """Creates the game window and clock."""
+        """Initializes the game."""
 
         os.environ['SDL_VIDEO_CENTERED'] = '1'
         self.screen = display.set_mode(RESOLUTION, False, 32)
@@ -63,6 +64,8 @@ class Game(object):
     def check_events(self):
         """Check for user input."""
 
+        event_rapidfire = USEREVENT + 1
+
         for e in event.get():
 
             # Check for window destroy event
@@ -88,7 +91,7 @@ class Game(object):
 
                 # Player shoot weapon
                 elif e.key == FIRE:
-                    time.set_timer(USEREVENT + 1, 120)
+                    time.set_timer(event_rapidfire, 120)
 
             # Released keys
             elif e.type == KEYUP:
@@ -101,11 +104,12 @@ class Game(object):
 
                 # Stop repeating key when released
                 elif e.key == FIRE:
-                    time.set_timer(USEREVENT + 1, 0)
+                    time.set_timer(event_rapidfire, 0)
 
             # Custom event - Rapid fire
-            elif e.type == USEREVENT + 1:
+            elif e.type == event_rapidfire:
                 self.player.shoot()
+
 
     def draw_screen(self):
         """Draw all of the objects to the screen."""
@@ -124,12 +128,22 @@ class Game(object):
         """Print debug info to console output."""
 
         if DEBUG:
+            if self.framecount == FPS:
 
-            # Show dirty screen areas in console output.
-            for i in range(0, len(self.dirty_rects)):
-                print "Dirty screen areas: %sx%s @ %s,%s" % (
-                    self.dirty_rects[i][2], self.dirty_rects[i][3],
-                    self.dirty_rects[i][0], self.dirty_rects[i][1])
+                # Show dirty screen areas in console output.
+                dirty = ""
+                for i in range(0, len(self.dirty_rects)):
+                    dirty = "dirty: %sx%s @ %s,%s, " % (self.dirty_rects[i][2],
+                        self.dirty_rects[i][3], self.dirty_rects[i][0],
+                        self.dirty_rects[i][1])
 
-            # Show current framerate on screen.
-            print 'Framerate: %f/%f' % (self.clock.get_fps(), FPS)
+                # Print number of projectiles on the screen
+                projs = "projs: %s, " % len(self.projectiles)
+
+                # Show current framerate on screen.
+                fps = "fps: %d/%d" % (self.clock.get_fps(), FPS)
+                self.framecount = 0
+                print dirty, projs, fps
+
+            else:
+                self.framecount += 1
