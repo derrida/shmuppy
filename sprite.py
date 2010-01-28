@@ -12,16 +12,6 @@ class Sprite(DirtySprite):
         self.x = 0
         self.y = 0
 
-    def collide(self, scene):
-        """Check if the sprite collided with an object or screen edge."""
-
-        rect = self.rect.move([self.x, self.y])
-        enemy_rects = []
-        for enemy in scene.enemies:
-            enemy_rects.append(enemy.rect)
-        if rect.collidelistall(enemy_rects):
-            return True
-
     def move(self):
         """Move the sprite and set it to dirty for the current frame."""
 
