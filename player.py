@@ -28,9 +28,8 @@ class Player(Sprite):
         enemy_rects = []
         for enemy in self.scene.enemies:
             enemy_rects.append(enemy.rect)
-        if not self.screen.get_rect().contains(rect) or (
-            rect.collidelistall(enemy_rects)):
-                return True
+        if rect.collidelistall(enemy_rects):
+            return True
 
     def shoot(self):
         """Shoot a projectile."""

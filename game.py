@@ -12,6 +12,7 @@ class Game(object):
 
     def __init__(self):
         self.running = True
+        self.repeat_keys = {}
         self.create_game()
         self.create_sprites()
         self.play()
@@ -86,7 +87,7 @@ class Game(object):
 
                 # Player shoot weapon
                 elif e.key == FIRE:
-                    self.player.shoot()
+                    self.repeat_keys[e.key] = True
 
             # Released keys
             elif e.type == KEYUP:
@@ -96,6 +97,14 @@ class Game(object):
                     self.player.y = 0
                 elif e.key in (LEFT, RIGHT):
                     self.player.x = 0
+
+                # Stop repeating key when released
+                elif e.key == FIRE:
+                    del self.repeat_keys[e.key]
+
+        # Repeat certain key presses
+        if self.repeat_keys.has_key(FIRE):
+            self.player.shoot()
 
     def draw_screen(self):
         """Draw all of the objects to the screen."""
