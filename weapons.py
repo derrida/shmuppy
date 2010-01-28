@@ -1,14 +1,10 @@
-from pygame.sprite import DirtySprite
-from pygame import Surface
+from sprite import Sprite
 
-class Weapon(DirtySprite):
+class Weapon(Sprite):
     """The base class that all weapons inherit from."""
 
     def __init__(self, size, color, speed):
-        DirtySprite.__init__(self)
-        self.image = Surface(size).convert()
-        self.image.fill(color)
-        self.rect = self.image.get_rect()
+        Sprite.__init__(self)
         self.speed = speed
         self.x = 0
         self.y = 0

@@ -1,4 +1,3 @@
-from pygame import Surface, Rect
 from sprite import Sprite
 from projectiles import *
 import config
@@ -30,7 +29,8 @@ class Player(Sprite):
         for enemy in self.scene.enemies:
             enemy_rects.append(enemy.rect)
         if not self.screen.get_rect().contains(rect) or (
-            Rect(rect).collidelistall(enemy_rects)): return True
+            rect.collidelistall(enemy_rects)):
+                return True
 
     def shoot(self):
         """Shoot a projectile."""

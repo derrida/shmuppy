@@ -1,5 +1,4 @@
 from random import randint
-from pygame import Rect
 from sprite import Sprite
 from projectiles import *
 
@@ -14,22 +13,21 @@ class Enemy(Sprite):
         self.speed = 1
         self.x = 0
         self.y = 0
-        self.move()
+        self.rect.move_ip(
+            [ self.size[0] * randint(0, self.scene.room.num_tiles[0]),
+            self.size[1] * randint(0, self.scene.room.num_tiles[1]) ])
 
     def move(self):
         """Move the enemy."""
 
         self.dirty = 1
-        self.rect.move_ip(
-            [ self.size[0] * randint(0, self.scene.room.num_tiles[0]),
-            self.size[1] * randint(0, self.scene.room.num_tiles[1]) ])
 
     def die(self):
         """Check if an enemy is dead and kills it."""
 
         # If projectile hits enemy, kill enemy and projectile.
         for proj in self.scene.projectiles:
-            if Rect(self.rect).colliderect(proj.rect):
+            if self.rect.colliderect(proj.rect):
                 self.kill()
                 proj.kill()
 

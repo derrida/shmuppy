@@ -1,14 +1,13 @@
-from pygame.sprite import DirtySprite
-from pygame import Surface, Rect, draw
+from pygame import draw
+from sprite import Sprite
 import config
 
-class Room(DirtySprite):
+class Room(Sprite):
     """A room is an area where a fight to the death takes place."""
 
     def __init__(self):
-        DirtySprite.__init__(self)
-        self.image = Surface(config.RESOLUTION).convert()
-        self.rect = self.image.get_rect()
+        self.size = config.RESOLUTION
+        Sprite.__init__(self, self.size)
         self.tile = FloorTile()
         self.num_tiles = [
             config.RESOLUTION[0] / self.tile.size[0],
@@ -24,17 +23,14 @@ class Room(DirtySprite):
                 self.image.blit(self.tile.image, offset)
 
 
-class FloorTile(DirtySprite):
+class FloorTile(Sprite):
     """A room is made up of many floor tiles."""
 
     def __init__(self):
-        DirtySprite.__init__(self)
         self.size = (32,32)
         self.color = (43,73,85)
         self.grid_color = (170,170,170)
-        self.image = Surface(self.size).convert()
-        self.image.fill(self.color)
-        self.rect = self.image.get_rect()
+        Sprite.__init__(self, self.size, self.color)
         if config.DEBUG:
             offset = self.rect.move([-1,-1])
             draw.rect(self.image, self.grid_color, offset, 1)
