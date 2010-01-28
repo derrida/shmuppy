@@ -14,16 +14,10 @@ class Enemy(Sprite):
             [ size[0] * randint(0, self.scene.room.num_tiles[0]),
             size[1] * randint(0, self.scene.room.num_tiles[1]) ])
 
-    def damaged(self):
+    def damage(self):
         """Enemy is damaged."""
 
         pass
-
-    def update(self):
-        """Update the monster each frame."""
-
-        if (self.x or self.y):
-            Sprite.move(self)
 
 
 class NameMe(Enemy):

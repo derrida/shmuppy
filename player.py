@@ -14,7 +14,7 @@ class Player(Sprite):
         self.hp = [0,0]
         Sprite.__init__(self, size, color)
 
-    def damaged(self):
+    def damage(self):
         """Player is damaged."""
 
         pass
@@ -35,10 +35,3 @@ class Player(Sprite):
         """Switch the player's weapon to the next weapon in their inventory."""
 
         pass
-
-    def update(self):
-        """Update the player each frame."""
-
-        if (self.x or self.y):
-            Sprite.face(self)
-            Sprite.move(self)

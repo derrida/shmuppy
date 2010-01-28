@@ -26,3 +26,10 @@ class Sprite(DirtySprite):
         self.dirty = 1
         self.rect.move_ip([self.x, self.y])
         self.rect.clamp_ip(self.scene.screen.get_rect())
+
+    def update(self):
+        """Update the sprite each frame."""
+
+        if (self.x or self.y):
+            self.face()
+            self.move()
