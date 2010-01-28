@@ -40,3 +40,6 @@ class Player(Sprite):
         if (self.x or self.y) and not self.collide(self.scene):
             Sprite.move(self)
         self.die()
+
+    def next_weapon(self):
+        """Switch the player's weapon to the next weapon in their inventory."""
