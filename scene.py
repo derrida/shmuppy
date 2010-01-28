@@ -17,6 +17,7 @@ class Scene(object):
         # Groups for sprites
         self.players = Group()
         self.enemies = Group()
+        self.chars = Group()
         self.weapons = Group()
         self.projs_player = Group()
         self.projs_enemy = Group()
@@ -36,6 +37,9 @@ class Scene(object):
             enemy = NameMe(self)
             self.enemies.add(enemy)
         self.all.add(self.enemies)
+
+        # Characters
+        self.chars.add([self.players, self.enemies])
 
         # Projectiles
         self.projs = Group([self.projs_player, self.projs_enemy])

@@ -14,13 +14,10 @@ class Player(Sprite):
         self.hp = [0,0]
         Sprite.__init__(self, size, color)
 
-    def die(self):
-        """Check if player died."""
+    def damaged(self):
+        """Player is damaged."""
 
-        for proj in self.scene.projs_enemy:
-            if self.rect.colliderect(proj.rect):
-                self.scene.projs.kill()
-                self.kill()
+        pass
 
     def shoot(self):
         """Shoot a projectile."""
@@ -45,4 +42,3 @@ class Player(Sprite):
         if (self.x or self.y):
             Sprite.face(self)
             Sprite.move(self)
-        self.die()

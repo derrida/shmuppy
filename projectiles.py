@@ -17,10 +17,24 @@ class Projectile(Sprite):
     def update(self):
         """Update the projectile on the screen."""
 
-        # Remove projectiles when they go off of the screen.
+        # Remove all projectiles that go off of the screen.
         for proj in self.scene.projs:
             if not proj.rect.colliderect(self.scene.screen.get_rect()):
                 proj.kill()
+
+        # Damage enemy when player's projectile hits it
+        for proj in self.scene.projs_enemy:
+            for char in self.scene.players:
+                if proj.rect.colliderect(char.rect):
+                    proj.kill()
+                    char.damage()
+
+        # Damage player when enemy's projectile hits it
+        for proj in self.scene.projs_player:
+            for char in self.scene.enemies:
+                if proj.rect.colliderect(char.rect):
+                    proj.kill()
+                    char.damage()
 
         # Move projectile
         if (self.x or self.y):

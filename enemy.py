@@ -14,20 +14,16 @@ class Enemy(Sprite):
             [ size[0] * randint(0, self.scene.room.num_tiles[0]),
             size[1] * randint(0, self.scene.room.num_tiles[1]) ])
 
-    def die(self):
-        """Check if an enemy is dead and kills it."""
+    def damaged(self):
+        """Enemy is damaged."""
 
-        for proj in self.scene.projs_player:
-            if self.rect.colliderect(proj.rect):
-                self.kill()
-                proj.kill()
+        pass
 
     def update(self):
         """Update the monster each frame."""
 
         if (self.x or self.y):
             Sprite.move(self)
-        self.die()
 
 
 class NameMe(Enemy):
