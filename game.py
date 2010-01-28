@@ -43,11 +43,10 @@ class Game(object):
             if self.framecount == FPS:
 
                 # Show dirty screen areas in console output.
-                dirty = ""
                 rects = self.scene.dirty_rects
-                for i in range(0, len(rects)):
-                    dirty = "dirty: %sx%s @ %s,%s, " % (rects[i][2],
-                        rects[i][3], rects[i][0], rects[i][1])
+                dirty = "dirties: None, "
+                for rect in rects:
+                    dirty = "dirties: %s, " % len(rects)
 
                 # Print number of projectiles on the screen
                 projs = "projs: %s, " % len(self.scene.projs)

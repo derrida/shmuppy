@@ -34,12 +34,14 @@ class Player(Sprite):
         proj.rect.y = self.rect.centery + 6
         proj.y = 1
 
+    def next_weapon(self):
+        """Switch the player's weapon to the next weapon in their inventory."""
+
+        pass
+
     def update(self):
         """Update the player each frame."""
 
-        if (self.x or self.y) and not self.collide(self.scene):
+        if (self.x or self.y):
             Sprite.move(self)
         self.die()
-
-    def next_weapon(self):
-        """Switch the player's weapon to the next weapon in their inventory."""

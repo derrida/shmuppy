@@ -14,7 +14,11 @@ class Projectile(Sprite):
         self.dirty = 1
         self.rect.move_ip([self.x * self.speed, self.y * self.speed])
 
+    def update(self):
+        """Update the projectile on the screen."""
 
+        if (self.x or self.y):
+            self.move()
 
 
 class Bullet(Projectile):
