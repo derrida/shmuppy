@@ -9,7 +9,6 @@ class Game(object):
 
     def __init__(self):
         self.framecount = 0
-        self.repeat_keys = {}
         self.create_game()
         self.play()
 
