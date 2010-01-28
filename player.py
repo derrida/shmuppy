@@ -38,4 +38,4 @@ class Player(Sprite):
         self.die()
 
     def next_weapon(self):
-        """Switch the player's weapon to the next weapon in their inventory."
+        """Switch the player's weapon to the next weapon in their inventory."""
