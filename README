@@ -20,9 +20,6 @@ weapons
     * how many pixels away can it damage?
     * attrs: size, weight, rapidfire, damage capacity, distance, failure, etc
 
-player
-* face the direction it moves in........................................axionix
-
 enemies
 * enemy ai ?
 * enemy attributes: health, weapon, ammo, ai factor ?
