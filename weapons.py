@@ -3,9 +3,10 @@ from sprite import Sprite
 class Weapon(Sprite):
     """The base class that all weapons inherit from."""
 
-    def __init__(self, size, color, speed):
+    def __init__(self, size, color, firing_rate, ammo_type):
         Sprite.__init__(self)
-        self.speed = speed
+        self.firing_rate = firing_rate
+        self.ammo_type = ammo_type
 
     def move(self):
         """Draw the weapon's new position."""
