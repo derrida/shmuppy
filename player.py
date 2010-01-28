@@ -1,6 +1,5 @@
 from sprite import Sprite
 from projectiles import *
-import config
 
 class Player(Sprite):
     """The sprite that the player controls."""

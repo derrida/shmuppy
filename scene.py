@@ -3,7 +3,7 @@ from pygame import display
 from pygame.sprite import Group, LayeredDirty
 from room import Room
 from player import Player
-from enemy import NameMe
+from enemy import *
 
 class Scene(object):
 
