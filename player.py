@@ -7,7 +7,6 @@ class Player(Sprite):
 
     def __init__(self, scene):
         self.scene = scene
-        self.screen = scene.screen
         size = (24,24)
         color = (100,0,0)
         Sprite.__init__(self, size, color)
