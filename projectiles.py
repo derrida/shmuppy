@@ -7,8 +7,6 @@ class Projectile(Sprite):
         Sprite.__init__(self, size, color)
         self.scene = scene
         self.speed = speed
-        self.x = 0
-        self.y = 0
 
     def move(self):
         """Draw the projectile's new position."""

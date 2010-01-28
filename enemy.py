@@ -7,15 +7,12 @@ class Enemy(Sprite):
 
     def __init__(self, scene):
         self.scene = scene
-        self.size = (16,16)
-        self.color = (0,100,0)
-        Sprite.__init__(self, self.size, self.color)
-        self.speed = 1
-        self.x = 0
-        self.y = 0
+        size = (16,16)
+        color = (0,100,0)
+        Sprite.__init__(self, size, color)
         self.rect.move_ip(
-            [ self.size[0] * randint(0, self.scene.room.num_tiles[0]),
-            self.size[1] * randint(0, self.scene.room.num_tiles[1]) ])
+            [ size[0] * randint(0, self.scene.room.num_tiles[0]),
+            size[1] * randint(0, self.scene.room.num_tiles[1]) ])
 
     def die(self):
         """Check if an enemy is dead and kills it."""
@@ -31,3 +28,11 @@ class Enemy(Sprite):
         if (self.x or self.y):
             Sprite.move(self)
         self.die()
+
+
+class NameMe(Enemy):
+    """Some unknown enemy yet to be named."""
+
+    def __init__(self, scene):
+        self.hp = [0,0]
+        Enemy.__init__(self, scene)

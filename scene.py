@@ -3,7 +3,7 @@ from pygame import display
 from pygame.sprite import Group, OrderedUpdates
 from room import Room
 from player import Player
-from enemy import Enemy
+from enemy import NameMe
 
 class Scene(object):
 
@@ -22,18 +22,18 @@ class Scene(object):
         self.projs_enemy = Group()
         self.all = OrderedUpdates()
 
-        # Create room
+        # Room
         self.room = Room()
         self.all.add(self.room)
 
-        # Create players
+        # Players
         self.player = Player(self)
         self.players.add(self.player)
         self.all.add(self.players)
 
-        # Create enemies
+        # Enemies
         for enemy in range(0, randint(20,70)):
-            enemy = Enemy(self)
+            enemy = NameMe(self)
             self.enemies.add(enemy)
         self.all.add(self.enemies)
 
@@ -50,12 +50,12 @@ class Scene(object):
     def draw(self):
         """Draw all of the objects to the screen."""
 
-        # Remove projectiles when the go off of the screen.
+        # Remove projectiles when they go off of the screen.
         for proj in self.projs:
             if not proj.rect.colliderect(self.screen.get_rect()):
                 proj.kill()
 
-        # Update all layers of the screen.
+        # Update all scene layers to the screen.
         self.all.update()
         self.dirty_rects = self.all.draw(self.screen)
         display.update(self.dirty_rects)

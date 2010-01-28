@@ -6,8 +6,6 @@ class Weapon(Sprite):
     def __init__(self, size, color, speed):
         Sprite.__init__(self)
         self.speed = speed
-        self.x = 0
-        self.y = 0
 
     def move(self):
         """Draw the weapon's new position."""
