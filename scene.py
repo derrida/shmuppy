@@ -32,7 +32,7 @@ class Scene(object):
         self.all.add(self.players)
 
         # Enemies
-        for enemy in range(0, randint(5,10)):
+        for enemy in range(0, randint(50,80)):
             enemy = NameMe(self)
             self.enemies.add(enemy)
         self.all.add(self.enemies)
@@ -51,7 +51,7 @@ class Scene(object):
         """Draw all of the objects to the screen."""
 
         # Remove projectiles when they go off of the screen.
-        for proj in self.projs_player:
+        for proj in self.projs:
             if not proj.rect.colliderect(self.screen.get_rect()):
                 proj.kill()
 

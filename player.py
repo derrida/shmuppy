@@ -8,12 +8,13 @@ class Player(Sprite):
     def __init__(self, scene):
         self.scene = scene
         self.screen = scene.screen
-        size = (24,24)
+        size = (16,16)
         color = (100,0,0)
-        Sprite.__init__(self, size, color)
         self.speed = 2
         self.x = 0
         self.y = 0
+        self.hp = [0,0]
+        Sprite.__init__(self, size, color)
 
     def die(self):
         """Check if player died."""
