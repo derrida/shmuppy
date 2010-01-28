@@ -34,7 +34,7 @@ class Player(Sprite):
     def shoot(self):
         """Shoot a projectile."""
 
-        proj = Arrow(self.scene)
+        proj = Bullet(self.scene)
         self.scene.projectiles.add(proj)
         self.scene.all.add(self.scene.projectiles)
         proj.rect.x = self.rect.centerx

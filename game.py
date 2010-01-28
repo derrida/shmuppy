@@ -2,6 +2,7 @@ import os
 from random import randint
 from pygame import display, time, mouse, event
 from pygame.sprite import Group, LayeredDirty
+from pygame.locals import *
 from room import Room
 from player import Player
 from enemy import Enemy
@@ -87,7 +88,7 @@ class Game(object):
 
                 # Player shoot weapon
                 elif e.key == FIRE:
-                    self.repeat_keys[e.key] = True
+                    time.set_timer(USEREVENT + 1, 120)
 
             # Released keys
             elif e.type == KEYUP:
@@ -100,11 +101,11 @@ class Game(object):
 
                 # Stop repeating key when released
                 elif e.key == FIRE:
-                    del self.repeat_keys[e.key]
+                    time.set_timer(USEREVENT + 1, 0)
 
-        # Repeat certain key presses
-        if self.repeat_keys.has_key(FIRE):
-            self.player.shoot()
+            # Custom event - Rapid fire
+            elif e.type == USEREVENT + 1:
+                self.player.shoot()
 
     def draw_screen(self):
         """Draw all of the objects to the screen."""
