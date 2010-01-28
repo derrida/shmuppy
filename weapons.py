@@ -13,11 +13,7 @@ class Weapon(Sprite):
         self.dirty = 1
         self.rect.center(player.x, player.y)
 
-    def update(self):
-        """Update the weapon each frame."""
 
-        if (self.x or self.y):
-            self.move()
 
 
 class Bow(Weapon):

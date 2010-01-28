@@ -1,6 +1,6 @@
 from random import randint
 from pygame import display
-from pygame.sprite import Group, OrderedUpdates
+from pygame.sprite import Group, LayeredDirty
 from room import Room
 from player import Player
 from enemy import NameMe
@@ -20,7 +20,7 @@ class Scene(object):
         self.weapons = Group()
         self.projs_player = Group()
         self.projs_enemy = Group()
-        self.all = OrderedUpdates()
+        self.all = LayeredDirty()
 
         # Room
         self.room = Room()
@@ -32,7 +32,7 @@ class Scene(object):
         self.all.add(self.players)
 
         # Enemies
-        for enemy in range(0, randint(20,70)):
+        for enemy in range(0, randint(1,1)):
             enemy = NameMe(self)
             self.enemies.add(enemy)
         self.all.add(self.enemies)
@@ -41,7 +41,7 @@ class Scene(object):
         self.projs = Group([self.projs_player, self.projs_enemy])
 
         # Layers
-        self.all = OrderedUpdates([
+        self.all = LayeredDirty([
             self.room,
             self.enemies,
             self.players,
@@ -50,10 +50,7 @@ class Scene(object):
     def draw(self):
         """Draw all of the objects to the screen."""
 
-        # Remove projectiles when they go off of the screen.
-        for proj in self.projs:
-            if not proj.rect.colliderect(self.screen.get_rect()):
-                proj.kill()
+
 
         # Update all scene layers to the screen.
         self.all.update()
