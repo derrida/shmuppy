@@ -50,11 +50,6 @@ class Scene(object):
     def draw(self):
         """Draw all of the objects to the screen."""
 
-        # Remove projectiles when they go off of the screen.
-        for proj in self.projs:
-            if not proj.rect.colliderect(self.screen.get_rect()):
-                proj.kill()
-
         # Update all scene layers to the screen.
         self.all.update()
         self.dirty_rects = self.all.draw(self.screen)

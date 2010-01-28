@@ -16,7 +16,7 @@ class Game(object):
     def create_game(self):
         """Initializes the game."""
 
-        # COnfigure the game
+        # Configure the game
         os.environ['SDL_VIDEO_CENTERED'] = '1'
         self.screen = display.set_mode(RESOLUTION, False, 32)
         self.scene = Scene(self.screen)

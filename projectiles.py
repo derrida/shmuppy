@@ -6,7 +6,7 @@ class Projectile(Sprite):
     def __init__(self, scene, size, color, speed):
         Sprite.__init__(self, size, color)
         self.scene = scene
-        self.speed = speed
+        self.speed = speed + self.scene.player.speed
 
     def move(self):
         """Draw the projectile's new position."""
@@ -17,6 +17,12 @@ class Projectile(Sprite):
     def update(self):
         """Update the projectile on the screen."""
 
+        # Remove projectiles when they go off of the screen.
+        for proj in self.scene.projs:
+            if not proj.rect.colliderect(self.scene.screen.get_rect()):
+                proj.kill()
+
+        # Move projectile
         if (self.x or self.y):
             self.move()
 

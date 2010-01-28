@@ -11,8 +11,6 @@ class Player(Sprite):
         size = (16,16)
         color = (100,0,0)
         self.speed = 2
-        self.x = 0
-        self.y = 0
         self.hp = [0,0]
         Sprite.__init__(self, size, color)
 
@@ -27,13 +25,14 @@ class Player(Sprite):
     def shoot(self):
         """Shoot a projectile."""
 
-        proj = Bullet(self.scene)
+        proj = Grenade(self.scene)
         self.scene.projs_player.add(proj)
         self.scene.projs.add(self.scene.projs_player)
         self.scene.all.add(self.scene.projs)
-        proj.rect.x = self.rect.centerx
-        proj.rect.y = self.rect.centery + 6
-        proj.y = 1
+        proj.rect.x = self.rect.centerx + (6 * self.facing[0])
+        proj.rect.y = self.rect.centery + (6 * self.facing[1])
+        proj.x = self.facing[0]
+        proj.y = self.facing[1]
 
     def next_weapon(self):
         """Switch the player's weapon to the next weapon in their inventory."""
@@ -44,5 +43,6 @@ class Player(Sprite):
         """Update the player each frame."""
 
         if (self.x or self.y):
+            Sprite.face(self)
             Sprite.move(self)
         self.die()

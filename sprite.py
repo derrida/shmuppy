@@ -11,6 +11,14 @@ class Sprite(DirtySprite):
         self.rect = self.image.get_rect()
         self.x = 0
         self.y = 0
+        self.facing = (0,1)
+        self.face()
+
+    def face(self):
+        """Face the sprite in the direction it's moving in."""
+
+        if (self.x or self.y):
+            self.facing = (self.x, self.y)
 
     def move(self):
         """Move the sprite and set it to dirty for the current frame."""
