@@ -36,3 +36,6 @@ class Player(Sprite):
 
         Sprite.move(self)
         self.die()
+
+    def next_weapon(self):
+        """Switch the player's weapon to the next weapon in their inventory."

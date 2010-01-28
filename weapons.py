@@ -24,7 +24,9 @@ class Bow(Weapon):
     """A Bow is a weapon that fires a single Arrow projectile."""
 
     def __init__(self):
-        size = (2,4) # size of weapon graphic
-        color = (25,166,192) # temporary color
-        speed = 20 # weapon's rate of fire
-        Weapon.__init__(self, size, color, speed)
+        self.size = (2,4) # size of weapon graphic
+        self.color = (25,166,192) # temporary color
+        self.speed = 20 # weapon's rate of fire
+        self.fire_rate = 2
+        self.ammo_type = "Arrow"
+        Weapon.__init__(self, size, color, fire_rate, ammo_type)
