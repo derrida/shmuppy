@@ -11,39 +11,30 @@ class Player(Sprite):
         size = (24,24)
         color = (100,0,0)
         Sprite.__init__(self, size, color)
-        self.speed = 3
+        self.speed = 2
         self.x = 0
         self.y = 0
 
-    def move(self):
-        """Move the player."""
+    def die(self):
+        """Check if player died."""
 
-        Sprite.move(self)
-        self.rect.clamp_ip(self.screen.get_rect())
-
-    def collide(self):
-        """Check if the player collided with an object or screen edge."""
-
-        rect = self.rect.move([self.x, self.y])
-        enemy_rects = []
-        for enemy in self.scene.enemies:
-            enemy_rects.append(enemy.rect)
-        if rect.collidelistall(enemy_rects):
-            return True
+        for proj in self.scene.projs_enemy:
+            if self.rect.colliderect(proj.rect):
+                self.scene.projs.kill()
+                self.kill()
 
     def shoot(self):
         """Shoot a projectile."""
 
         proj = Bullet(self.scene)
-        self.scene.projectiles.add(proj)
-        self.scene.all.add(self.scene.projectiles)
+        self.scene.projs_player.add(proj)
+        self.scene.all.add(self.scene.projs_player)
         proj.rect.x = self.rect.centerx
-        proj.rect.y = self.rect.centery
+        proj.rect.y = self.rect.centery + 6
         proj.y = 1
 
     def update(self):
         """Update the player each frame."""
 
-        # Draw the player at its new position.
-        if (self.x or self.y) and not self.collide():
-            self.move()
+        Sprite.move(self)
+        self.die()

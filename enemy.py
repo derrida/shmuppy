@@ -17,16 +17,10 @@ class Enemy(Sprite):
             [ self.size[0] * randint(0, self.scene.room.num_tiles[0]),
             self.size[1] * randint(0, self.scene.room.num_tiles[1]) ])
 
-    def move(self):
-        """Move the enemy."""
-
-        self.dirty = 1
-
     def die(self):
         """Check if an enemy is dead and kills it."""
 
-        # If projectile hits enemy, kill enemy and projectile.
-        for proj in self.scene.projectiles:
+        for proj in self.scene.projs_player:
             if self.rect.colliderect(proj.rect):
                 self.kill()
                 proj.kill()
@@ -35,5 +29,5 @@ class Enemy(Sprite):
         """Update the monster each frame."""
 
         if (self.x or self.y):
-            self.move()
+            Sprite.move(self)
         self.die()

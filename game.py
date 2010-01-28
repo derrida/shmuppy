@@ -1,7 +1,7 @@
 import os
 from random import randint
 from pygame import display, time, mouse, event
-from pygame.sprite import Group, LayeredDirty
+from pygame.sprite import Group, OrderedUpdates
 from pygame.locals import *
 from room import Room
 from player import Player
@@ -22,6 +22,7 @@ class Game(object):
     def create_game(self):
         """Initializes the game."""
 
+        # COnfigure the game
         os.environ['SDL_VIDEO_CENTERED'] = '1'
         self.screen = display.set_mode(RESOLUTION, False, 32)
         self.clock = time.Clock()
@@ -34,23 +35,27 @@ class Game(object):
         """Create all the required sprites and add them to groups."""
 
         # Groups for sprites
-        self.weapons = Group()
-        self.projectiles = Group()
+        self.players = Group()
         self.enemies = Group()
+        self.weapons = Group()
+        self.projs_player = Group()
+        self.projs_enemy = Group()
+        self.projs = Group([self.projs_player, self.projs_enemy])
 
         # Game Sprites
         self.room = Room()
         self.player = Player(self)
+        self.players.add(self.player)
         for enemy in range(0, randint(20,70)):
             enemy = Enemy(self)
             self.enemies.add(enemy)
 
         # Rendered layers
-        self.all = LayeredDirty([
+        self.all = OrderedUpdates([
             self.room,
-            self.player,
+            self.players,
             self.enemies,
-            self.projectiles ])
+            self.projs ])
 
     def play(self):
         """The main game loop."""
@@ -91,6 +96,7 @@ class Game(object):
 
                 # Player shoot weapon
                 elif e.key == FIRE:
+                    self.player.shoot()
                     time.set_timer(event_rapidfire, 120)
 
             # Released keys
@@ -107,7 +113,7 @@ class Game(object):
                     time.set_timer(event_rapidfire, 0)
 
             # Custom event - Rapid fire
-            elif e.type == event_rapidfire:
+            if e.type == event_rapidfire:
                 self.player.shoot()
 
 
@@ -115,7 +121,7 @@ class Game(object):
         """Draw all of the objects to the screen."""
 
         # Remove projectiles when the go off of the screen.
-        for proj in self.projectiles:
+        for proj in self.projs:
             if not proj.rect.colliderect(self.screen.get_rect()):
                 proj.kill()
 
