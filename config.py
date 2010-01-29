@@ -17,5 +17,5 @@ RIGHT =         K_RIGHT
 FIRE =          K_LCTRL
 
 # Debugging
-DEBUG =         False
+DEBUG =         True
 PROFILE =       False

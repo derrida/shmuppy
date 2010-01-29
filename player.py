@@ -1,5 +1,6 @@
 from sprite import Sprite
 from projectiles import *
+from weapons import *
 
 class Player(Sprite):
     """The sprite that the player controls."""
@@ -11,6 +12,8 @@ class Player(Sprite):
         color = (100,0,0)
         self.speed = 2
         self.hp = [0,0]
+        self.weapon = 0
+        self.weapons = [Pistol(), Bow()]
         Sprite.__init__(self, size, color)
 
     def damage(self):
@@ -21,7 +24,8 @@ class Player(Sprite):
     def shoot(self):
         """Shoot a projectile."""
 
-        proj = Grenade(self.scene)
+        #proj = Grenade(self.scene)
+        proj = self.weapons[self.weapon].ammo_type(self.scene)
         self.scene.projs_player.add(proj)
         self.scene.projs.add(self.scene.projs_player)
         self.scene.all.add(self.scene.projs)
@@ -30,7 +34,20 @@ class Player(Sprite):
         proj.x = self.facing[0]
         proj.y = self.facing[1]
 
+
+    def add_weapon(self, weapon):
+      """Add a weapon to the player's inventory"""
+      self.weapons += weapon
     def next_weapon(self):
         """Switch the player's weapon to the next weapon in their inventory."""
+        if (self.weapon == len(self.weapons) -1): 
+                #We are at the end of the inventory
+                self.switch_weapon(0)
+        else:
+                self.switch_weapon(self.weapon+1)
+              
 
-        pass
+    def switch_weapon(self, number):
+      """Switch to a given weapon in the player's inventory"""
+      self.weapon = number
+

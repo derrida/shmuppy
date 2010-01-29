@@ -41,6 +41,8 @@ class EventManager(object):
                 elif e.key == FIRE:
                     self.scene.player.shoot()
                     time.set_timer(event_rapidfire, 120)
+                elif e.key == K_RCTRL:
+                    self.scene.player.next_weapon()
 
             # Released keys
             elif e.type == KEYUP:

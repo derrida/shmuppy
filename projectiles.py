@@ -45,7 +45,7 @@ class Bullet(Projectile):
     """A Bullet is a single projectile."""
 
     def __init__(self, scene):
-        size = (2,4)
+        size = (10, 20)
         color = (255,0,128)
         speed = 6
         Projectile.__init__(self, scene, size, color, speed)
@@ -56,7 +56,7 @@ class Arrow(Projectile):
 
     def __init__(self, scene):
         size = (1,8)
-        color = (128,128,0)
+        color = (127,128,0)
         speed = 14
         Projectile.__init__(self, scene, size, color, speed)
 
