@@ -7,17 +7,14 @@ weapons
 * rapid firing of weapons...............................................axionix
     * must allow different rates per weapon
 
-* weapon logic..........................................................derrida
-    * should be able to cycle through aquired weapons
+* weapon logic
     * each weapon instance should have a random rate of failure and checked on
         each use or fire.
     * can pick up and discard items in room
     * implement rapidfire differently for each type
     * define types of ammo it will work with
     * weapons like machine guns should have a random amount of starting ammo
-    * ammo expending
     * slow down player for heavier but deadlier weapons :)
-    * how many pixels away can it damage?
     * attrs: size, weight, rapidfire, damage capacity, distance, failure, etc
 
 enemies

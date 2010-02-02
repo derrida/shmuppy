@@ -12,8 +12,6 @@ class EventManager(object):
     def check(self):
         """Check for user input."""
 
-        event_rapidfire = USEREVENT + 1
-
         for e in event.get():
 
             # Check for window destroy event
@@ -37,12 +35,16 @@ class EventManager(object):
                 elif e.key == RIGHT:
                     self.scene.player.x += self.scene.player.speed
 
-                # Player shoot weapon
-                elif e.key == FIRE:
-                    self.scene.player.shoot()
-                    time.set_timer(event_rapidfire, 120)
-                elif e.key == K_RCTRL:
+                # Fire weapon
+                elif e.key in FIRE:
+                    self.scene.player.firing = True
+
+                # Switch weapon
+                elif e.key == NEXT_WEAPON:
                     self.scene.player.next_weapon()
+
+                # Switch to specific weapon
+                # TODO: possibly grab these from inputs.py?
 
             # Released keys
             elif e.type == KEYUP:
@@ -53,10 +55,6 @@ class EventManager(object):
                 elif e.key in (LEFT, RIGHT):
                     self.scene.player.x = 0
 
-                # Stop repeating key when released
-                elif e.key == FIRE:
-                    time.set_timer(event_rapidfire, 0)
-
-            # Custom event - Rapid fire
-            if e.type == event_rapidfire:
-                self.scene.player.shoot()
+                # Stop firing weapon
+                elif e.key in FIRE:
+                    self.scene.player.firing = False

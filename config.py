@@ -4,7 +4,7 @@ NAME =          "Shmuppy"
 VERSION =       ""
 
 # Display
-RESOLUTION =    (600,800)
+RESOLUTION =    (800,600)
 FULLSCREEN =    False
 FPS =           60
 
@@ -14,7 +14,8 @@ UP =            K_UP
 DOWN =          K_DOWN
 LEFT =          K_LEFT
 RIGHT =         K_RIGHT
-FIRE =          K_LCTRL
+FIRE =          K_LCTRL, K_RCTRL
+NEXT_WEAPON =   K_SPACE
 
 # Debugging
 DEBUG =         True

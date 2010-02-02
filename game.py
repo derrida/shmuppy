@@ -15,7 +15,6 @@ class Game(object):
     def create_game(self):
         """Initializes the game."""
 
-        # Configure the game
         os.environ['SDL_VIDEO_CENTERED'] = '1'
         self.screen = display.set_mode(RESOLUTION, False, 32)
         self.scene = Scene(self.screen)
@@ -53,7 +52,8 @@ class Game(object):
                 # Show current framerate on screen.
                 fps = "fps: %d/%d" % (self.clock.get_fps(), FPS)
                 self.framecount = 0
-                print dirty, projs, fps
+                os.system("clear")
+                print "Game: " + dirty, projs, fps
 
             else:
                 self.framecount += 1
